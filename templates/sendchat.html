@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% block page_name %}微信推送{% endblock %} {% block body_part7 %}
+<a href="{{ url_for('wechat') }}" class="nav-link active">
+    {% endblock %} {% block body_part1 %}
+    <span class="glyphicon glyphicon-send"></span>
+    &ensp;把成绩发送到我的微信 @-@ {% endblock %} {% block body_part2 %}
+
+    <form class="bs-example bs-example-form" role="form" method="post">
+        <div style="text-align:center">
+        <img src="/static/images/QR.png?t={{t}}" style="width:20%">
+        <p>将你的成绩发送给微信文件传输助手</p>
+        </div>
+    </form>
+    {% endblock %}

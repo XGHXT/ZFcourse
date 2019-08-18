@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% block page_name %}邮箱推送{% endblock %} {% block body_part6 %}
+<a href="{{ url_for('email') }}" class="nav-link active">
+    {% endblock %} {% block body_part1 %}
+    <span class="glyphicon glyphicon-send"></span>
+    &ensp;把成绩发送到我的邮箱 @-@ {% endblock %} {% block body_part2 %}
+
+    <form class="bs-example bs-example-form" role="form" method="post">
+        <div style="text-align:center">
+        <div class="input-group">
+            <span class="input-group-addon glyphicon glyphicon-envelope">&ensp;邮箱</span>
+            <input type="text" class="form-control" id="inputEmail" name="email" placeholder="email" style="width:25%;height: 40px">
+        </div>
+        <br>
+            <span>
+                <button type="submit" class="btn btn-info" style="margin-top:-120px; margin-left:-200px;width: 8%;height: 45px;">
+                <span class="glyphicon glyphicon-export">&ensp;发送</span>
+                </button>
+            </span>
+        </div>
+        {% for msg in get_flashed_messages(category_filter=['OK']): %}
+        <li>
+            <div  style="text-align:center;width: 40%;height: 50px;" class="alert alert-info" role="alert">
+                <span class="glyphicon glyphicon-ok"></span>&ensp;成绩单发送完成！
+            </div>
+        </li>
+        {% endfor %} {% for msg in get_flashed_messages(category_filter=['error']): %}
+        <li>
+            <div  style="text-align:center;width: 40%;height: 50px;" class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-alert"></span>&ensp;成绩单发送失败！
+            </div>
+        </li>
+        {% endfor %}
+
+    </form>
+    {% endblock %}

@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% block static_files %}
+{% endblock %}
+{% block page_name %}成绩{% endblock %}
+{% block body_part4 %}
+<a href="{{ url_for('score') }}" class="nav-link active">
+{% endblock %}
+{% block body_part1 %}
+<span class="glyphicon glyphicon-education"></span>&ensp;这是你的成绩表&ensp;^-^
+    {% endblock %} {% block body_part2 %}
+    <form method="POST">
+        <span>
+            学年:
+            <select name=year class="form-control selectpicker" style="width: 13%; height: 35px; font-size: 16px; margin-top:-32px; margin-left:50px;">
+                {% if credit[4] == 'all' %}
+                <option selected="selected" value="all">all</option>
+                {% else %}
+                <option value="all">all</option>
+                {% endif %} 
+ 
+                {% if credit[4] == '2015-2016' %}
+                <option selected="selected" value="2015-2016">2015-2016</option>
+                {% else %}
+                <option value="2015-2016">2015-2016</option>
+                {% endif %} 
+
+                {% if credit[4] == '2016-2017' %}
+                <option selected="selected" value="2016-2017">2016-2017</option>
+                {% else %}
+                <option value="2016-2017">2016-2017</option>
+                {% endif %} 
+                
+                {% if credit[4] == '2017-2018' %}
+                <option selected="selected" value="2017-2018">2017-2018</option>
+                {% else %}
+                <option value="2017-2018">2017-2018</option>
+                {% endif %}
+
+                {% if credit[4] == '2018-2019' %}
+                <option selected="selected" value="2018-2019">2018-2019</option>
+                {% else %}
+                <option value="2018-2019">2018-2019</option>
+                {% endif %}
+
+            </select>
+            <p style="margin-top:-28px; margin-left:253px;">学期:</p>
+            <select name=term class="form-control selectpicker" style="width: 10%; height: 35px; font-size: 16px; margin-top:-50px; margin-left:302px;">
+                {% if credit[5] == 'all' %}
+                <option selected="selected" value="all">all</option>
+                {% else %}
+                <option value="all">all</option>
+                {% endif %} 
+                
+                {% if credit[5] == '1' %}
+                <option selected="selected" value="1">1</option>
+                {% else %}
+                <option value="1">1</option>
+                {% endif %} 
+                
+                {% if credit[5] == '2' %}
+                <option selected="selected" value="2">2</option>
+                {% else %}
+                <option value="2">2</option>
+                {% endif %}</select>
+            </select>
+        </span>
+        <span>
+            <button type="submit" class="btn btn-success" style="margin-top:-60px; margin-left:465px;width: 8%;height: 45px;">
+                <span class="glyphicon glyphicon-search"></span>&ensp;查询
+            </button>
+        </span>
+    </form>
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+            <tr class="info">
+                <td colspan="3">
+                    <span class="glyphicon glyphicon-hand-right"></span>
+                    &nbsp;所选学分:{{credit[0]}}
+                </td>
+                <td colspan="2">
+                    <span class="glyphicon glyphicon-hand-right"></span>
+                    &nbsp;未获得学分:{{credit[1]}}
+                </td>
+                <td colspan="3">
+                    <span class="glyphicon glyphicon-hand-right"></span>
+                    &nbsp;平均绩点:{{credit[2]}}
+                </td>
+                <td colspan="3">
+                    <span class="glyphicon glyphicon-hand-right"></span>
+                    &nbsp;加权平均分:{{credit[3]}}
+                </td>
+            </tr>
+            <tr>
+                <th>学年</th>
+                <th>学期</th>
+                <th>课程名称</th>
+                <th>课程代码</th>
+                <th>学分</th>
+                <th>课程性质</th>
+                <th>考试性质</th>
+                <th>成绩是否作废</th>
+                <th>绩点</th>
+                <th>成绩</th>
+                <th>开课部门</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if classes %}
+            {% for cla in classes %}        
+                    {% if cla.test_category != "正常考试" and cla.score < 60 %}
+                    <tr class="danger">
+                    {% elif cla.test_category != "正常考试" and cla.score >= 60 %} 
+                    <tr class="success">
+                    {% elif cla.score < 60 %} 
+                    <tr class="warning">
+                    {% else %}
+                    <tr>
+                    {% endif %}
+                            <td>{{cla.school_year}}</td>
+                            <td>{{cla.school_term}}</td>
+                            <td>{{cla.class_name}}</td>
+                            <td>{{cla.class_code}}</td>
+                            <td>{{cla.credit}}</td>
+                            <td>{{cla.class_category}}</td>
+                            <td>{{cla.test_category}}</td>
+                            <td>{{cla.cjsfzf}}</td>
+                            {% if cla.GPA == None %}
+                            <td>&ensp;</td>
+                            {% else %}
+                            <td>{{cla.GPA}}</td>
+                            {% endif %}
+
+                            {% if cla.score < 60 %}
+                            <td>{{cla.score}}</td>
+                            {% else %}
+                            <td>{{cla.score}}</td>
+                            {% endif %}
+
+                            {% if cla.class_ownership == None %}
+                            <td>&ensp;</td>
+                            {% else %}
+                            <td>{{cla.class_ownership}}</td>
+                            {% endif %}
+                        </tr>
+            {% endfor %}
+        {% else %}
+        <tr class="danger">
+            <td colspan="11" align=center>
+                <span class="glyphicon glyphicon-remove"></span>&ensp;并没有查到该学期的成绩
+            </td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    {% endblock %}

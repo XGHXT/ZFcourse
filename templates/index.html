@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block static_files %}
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% endblock %}
+{% block page_name %}微信推送{% endblock %}
+{% block body_part7 %}
+<a href="{{ url_for('QRlogin') }}" class="nav-link active">
+{% endblock %}
+{% block body_part8 %}
+<span>退出微信</span>
+{% endblock %}
+{% block body_part1 %}
+<span class="icon iconfont icon-weixin"></span>
+    &ensp;你好,{{user_dict.NickName}}
+{% endblock %}
+{% block body_part2 %}
+<form action="/send_msg" id="fm" method="POST">
+    <span>
+        学年:
+        <select name=year class="form-control selectpicker" style="width: 13%; height: 35px; font-size: 16px; margin-top:-32px; margin-left:50px;">
+            <option selected="selected" value="all">all</option>
+            <option value="2015-2016">2015-2016</option>
+            <option value="2016-2017">2016-2017</option>           
+            <option value="2017-2018">2017-2018</option>
+            <option value="2018-2019">2018-2019</option>
+        </select>
+        <p style="margin-top:-28px; margin-left:253px;">学期:</p>
+        <select name=term class="form-control selectpicker" style="width: 10%; height: 35px; font-size: 16px; margin-top:-50px; margin-left:302px;">
+            <option selected="selected" value="all">all</option>            
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+    </span>
+    <span>
+        <button onclick="send_msg();" type="submit" class="btn btn-success" style="margin-top:-60px; margin-left:465px;width: 8%;height: 45px;">
+            <span class="glyphicon glyphicon-search"></span>&ensp;发送
+        </button>
+    </span>
+    {% for msg in get_flashed_messages(category_filter=['OK']): %}
+    <li>
+        <div  style="text-align:center;width: 40%;height: 50px;" class="alert alert-info" role="alert">
+            <span class="glyphicon glyphicon-ok"></span>&ensp;发送完成！
+        </div>
+    </li>
+    {% endfor %} {% for msg in get_flashed_messages(category_filter=['error']): %}
+    <li>
+        <div  style="text-align:center;width: 40%;height: 50px;" class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-alert"></span>&ensp;发送失败！
+        </div>
+    </li>
+    {% endfor %}
+</form>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+{% endblock %}
