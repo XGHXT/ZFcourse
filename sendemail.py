@@ -9,8 +9,8 @@ from email.utils import formataddr
 from models import Score
 
 def sendemail(id, my_user, user_name):
-    my_sender='wsyuacm@foxmail.com'    # 发件人邮箱账号
-    my_pass = 'xsivmanwcvrebffb'              # 发件人邮箱授权码
+    my_sender=''    # 发件人邮箱账号
+    my_pass = ''              # 发件人邮箱授权码
     ret=True
     try:
         n = parsermail(id)
