@@ -5,7 +5,7 @@
 ![jwxt](https://s2.ax1x.com/2019/08/18/mQtkZQ.png)
 
 
-- 安装依赖文件 ```pip install -r requirements```
+- 安装依赖 ```pip install -r requirements```
 - 配置教务网站路径、数据库及其邮箱
 - 启动 ```python view.py```
 
