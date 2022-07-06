@@ -6,7 +6,7 @@ Flask-Script==2.0.6
 Flask-SQLAlchemy==2.3.2
 Jinja2==2.10
 lml==0.0.2
-lxml==4.2.4
+lxml==4.9.1
 matplotlib==2.2.3
 numpy==1.14.5
 pandas==0.23.4
